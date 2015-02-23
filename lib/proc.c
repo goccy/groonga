@@ -25,6 +25,7 @@
 #include "grn_geo.h"
 #include "grn_token_cursor.h"
 #include "grn_expr.h"
+#include "grn_command.h"
 
 #include <string.h>
 #include <stdlib.h>
@@ -6559,7 +6560,11 @@ grn_db_init_builtin_query(grn_ctx *ctx)
   DEF_VAR(vars[0], "max");
   DEF_COMMAND("cache_limit", proc_cache_limit, 1, vars);
 
-#ifndef GRN_WITH_MRUBY
+#ifdef GRN_WITH_MRUBY
+  if (grn_db_init_dump_command(ctx)) {
+    ERRCLR(ctx);
+  }
+#else /* GRN_WITH_MRUBY */
   DEF_VAR(vars[0], "tables");
   DEF_COMMAND("dump", proc_dump, 1, vars);
 #endif /*GRN_WITH_MRUBY */

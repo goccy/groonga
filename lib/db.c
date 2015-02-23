@@ -25,7 +25,6 @@
 #include "grn_tokenizers.h"
 #include "grn_proc.h"
 #include "grn_plugin.h"
-#include "grn_command.h"
 #include "grn_geo.h"
 #include "grn_scorers.h"
 #include "grn_snip.h"
@@ -256,11 +255,6 @@ grn_db_open(grn_ctx *ctx, const char *path)
           grn_ctx_use(ctx, (grn_obj *)s);
 #ifdef GRN_WITH_MECAB
           if (grn_db_init_mecab_tokenizer(ctx)) {
-            ERRCLR(ctx);
-          }
-#endif
-#ifdef GRN_WITH_MRUBY
-          if (grn_db_init_dump_command(ctx)) {
             ERRCLR(ctx);
           }
 #endif
