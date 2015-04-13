@@ -71,7 +71,7 @@ struct _grn_tiny_array {
   uint16_t element_size;
   uint16_t flags;
   void *blocks[GRN_TINY_ARRAY_NUM_BLOCKS];
-  grn_critical_section lock;
+  pthread_mutex_t lock;
 };
 
 #define GRN_TINY_ARRAY_EACH(array, head, tail, key, value, block) do { \
@@ -167,7 +167,7 @@ grn_rc grn_array_copy_sort_key(grn_ctx *ctx, grn_array *array,
 typedef struct _grn_table_queue grn_table_queue;
 
 struct _grn_table_queue {
-  grn_mutex mutex;
+  pthread_mutex_t mutex;
   grn_cond cond;
   grn_id head;
   grn_id tail;

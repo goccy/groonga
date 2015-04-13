@@ -45,7 +45,7 @@ struct _grn_db {
   grn_obj *keys;
   grn_ja *specs;
   grn_tiny_array values;
-  grn_critical_section lock;
+  pthread_mutex_t lock;
 };
 
 typedef struct {
